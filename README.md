@@ -1,0 +1,27 @@
+# Die Tastonettis – Website
+
+Statische Website (HTML/CSS/JS, kein Build-Schritt). Einfach den gesamten Ordner auf den Webserver hochladen.
+
+## Seiten
+| Datei | Inhalt |
+|---|---|
+| `index.html` | Startseite mit Musikvideo „Viva La Vida“ (Lebe das Leben) |
+| `orchester.html` | Über das Orchester, Videos, Termine |
+| `alben.html` | Alle Alben: „Klavier to go“ (mit 360°-Ansicht) und „Takt 26“ |
+| `verein.html` | Vorstand, Mitgliedschaft, Highlights, Ehrenmitglieder, Sponsoren, Spenden |
+| `buchung.html` | Buchungsinfos, Technik, Referenzen |
+| `kontakt.html` | Kontakt per E-Mail (tastonettis@gmail.com) |
+| `impressum.html`, `datenschutz.html` | Rechtstexte (1:1 von tastonettis.de) |
+
+## Design
+- Helles und dunkles Design, wechselt automatisch je nach Systemeinstellung (`prefers-color-scheme`).
+- Akzentfarbe `#ed1c24` (Logofarbe), definiert in `assets/css/style.css` (`--brand`).
+- Keine externen Schriftarten, Skripte oder Tracker.
+
+## YouTube (DSGVO)
+Videos werden per 2-Klick-Lösung eingebunden: Vor dem Klick auf „Abspielen“ wird **keine** Verbindung zu YouTube/Google
+aufgebaut (Vorschaubilder liegen lokal unter `assets/img/video/`). Erst nach Zustimmung wird der Player über
+`youtube-nocookie.com` geladen. Besucher können die Zustimmung optional merken lassen und im Footer widerrufen.
+
+Ein Video einbinden: Element mit `class="video-embed" data-youtube="VIDEO-ID"` (siehe `index.html`) und
+Vorschaubild unter `assets/img/video/VIDEO-ID.jpg` ablegen.
