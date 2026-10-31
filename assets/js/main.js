@@ -45,18 +45,17 @@
   /* ---------- YouTube: 2-Klick-Lösung (DSGVO) ----------
      Vor dem Klick wird KEINE Verbindung zu YouTube/Google aufgebaut.
      Das Vorschaubild liegt lokal auf unserem Server.
-     Erst nach Zustimmung wird der Player über youtube-nocookie.com geladen.
-     Optional kann die Zustimmung im localStorage gemerkt werden (widerrufbar im Footer). */
-  var CONSENT_KEY = 'tastonettis-youtube-consent';
-  function hasConsent() { try { return localStorage.getItem(CONSENT_KEY) === 'yes'; } catch (e) { return false; } }
-  function setConsent(v) { try { v ? localStorage.setItem(CONSENT_KEY, 'yes') : localStorage.removeItem(CONSENT_KEY); } catch (e) {} }
+     Erst nach Klick auf „Abspielen“ wird der Player über youtube-nocookie.com geladen.
+     Die Zustimmung gilt nur für dieses eine Video und wird nicht gespeichert. */
 
-  function loadVideo(box, autoplay) {
+  // Früher gespeicherte Zustimmung (alte Website-Version) im Browser entfernen.
+  try { localStorage.removeItem('tastonettis-youtube-consent'); } catch (e) {}
+
+  function loadVideo(box) {
     var id = box.getAttribute('data-youtube');
     var title = box.getAttribute('data-title') || 'YouTube-Video';
     var iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
-      '?rel=0&modestbranding=1' + (autoplay ? '&autoplay=1' : '');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?rel=0&modestbranding=1&autoplay=1';
     iframe.title = title;
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
     iframe.referrerPolicy = 'strict-origin-when-cross-origin';
@@ -65,28 +64,10 @@
     box.appendChild(iframe);
   }
 
-  var videos = document.querySelectorAll('.video-embed[data-youtube]');
-  videos.forEach(function (box) {
+  document.querySelectorAll('.video-embed[data-youtube]').forEach(function (box) {
     var btn = box.querySelector('.video-play');
-    var remember = box.querySelector('input[type="checkbox"]');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        if (remember && remember.checked) { setConsent(true); updateRevoke(); }
-        loadVideo(box, true);
-      });
-    }
+    if (btn) btn.addEventListener('click', function () { loadVideo(box); });
   });
-  if (hasConsent()) videos.forEach(function (box) { loadVideo(box, false); });
-
-  var revoke = document.querySelector('[data-revoke-consent]');
-  function updateRevoke() { if (revoke) revoke.hidden = !hasConsent(); }
-  if (revoke) {
-    updateRevoke();
-    revoke.querySelector('button').addEventListener('click', function () {
-      setConsent(false);
-      window.location.reload();
-    });
-  }
 
   /* ---------- 360°-Ansicht "Klavier to go" ---------- */
   document.querySelectorAll('[data-spin]').forEach(function (spin) {
