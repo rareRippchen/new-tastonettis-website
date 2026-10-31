@@ -580,3 +580,4 @@ figcaption { font-size: .9rem; color: var(--text-muted); margin-top: .7rem; }
   .teaser-cd-gap strong { font-size: 1.1rem; }
   .teaser-cd-line em { font-size: .75rem; padding: .2rem .6rem; }
 }
+#neue-cd .teaser-cd { margin-bottom: 0; }
