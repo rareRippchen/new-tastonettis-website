@@ -528,14 +528,38 @@ figcaption { font-size: .9rem; color: var(--text-muted); margin-top: .7rem; }
 .cover-bonus span { right: 1rem; bottom: 1rem; font-size: .9rem; padding: .35rem .9rem; }
 
 .teaser-cd {
-  display: grid; grid-template-columns: 220px 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center;
-  padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: calc(var(--radius) + 4px);
-  background: var(--surface); border: 2px dashed var(--brand); margin-bottom: clamp(4rem, 9vw, 7rem);
+  padding: clamp(1.5rem, 4vw, 3rem); border-radius: calc(var(--radius) + 4px);
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+  margin-bottom: clamp(4rem, 9vw, 7rem); position: relative; overflow: hidden;
 }
+.teaser-cd::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 5px; background: linear-gradient(90deg, #ed1c24, #b3121a); }
+.teaser-cd-head { display: grid; grid-template-columns: 200px 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+.teaser-cd-head p:last-child { margin-bottom: 0; }
 .teaser-cd-art { aspect-ratio: 1; border-radius: var(--radius); font-size: 6rem; box-shadow: var(--shadow-lg); }
 .teaser-cd-art span { animation: wobble 3s ease-in-out infinite; }
 @keyframes wobble { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg) scale(1.05); } }
-@media (max-width: 640px) { .teaser-cd { grid-template-columns: 1fr; } .teaser-cd-art { max-width: 180px; } }
+@media (max-width: 640px) { .teaser-cd-head { grid-template-columns: 1fr; } .teaser-cd-art { max-width: 160px; } }
+
+.countdown { margin-top: 2rem; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radius); background: var(--bg-alt); text-align: center; }
+.countdown-label { font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em; font-size: .82rem; margin-bottom: 1rem; }
+.countdown-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.5rem, 2vw, 1rem); max-width: 640px; margin-inline: auto; }
+.countdown-grid div { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem .5rem; }
+.countdown-grid strong {
+  display: block; font-family: var(--font-display); font-weight: 800; font-variant-numeric: tabular-nums;
+  font-size: clamp(1.8rem, 6vw, 3.2rem); line-height: 1; color: var(--brand);
+}
+.countdown-grid span { display: block; margin-top: .4rem; font-size: .85rem; color: var(--text-muted); }
+.countdown-done { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--brand); margin: 0; }
+
+.teaser-cd-gap { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; font-size: .9rem; color: var(--text-muted); }
+.teaser-cd-gap > span:not(.teaser-cd-line) { display: flex; flex-direction: column; flex: none; }
+.teaser-cd-gap > span:last-child { text-align: right; }
+.teaser-cd-gap strong { font-family: var(--font-display); font-size: 1.3rem; color: var(--text); }
+.teaser-cd-line { flex: 1; height: 2px; background: repeating-linear-gradient(90deg, var(--brand) 0 8px, transparent 8px 14px); position: relative; }
+.teaser-cd-line em {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-style: normal; font-weight: 700;
+  background: var(--brand-strong); color: #fff; padding: .25rem .8rem; border-radius: 999px; white-space: nowrap;
+}
 
 .stream-links { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .stream-links .muted { font-size: .9rem; font-weight: 600; margin-right: .25rem; }
@@ -549,3 +573,10 @@ figcaption { font-size: .9rem; color: var(--text-muted); margin-top: .7rem; }
 
 .price strong { display: block; font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.3rem); line-height: 1; color: var(--brand); font-weight: 800; margin-bottom: .4rem; }
 .price span { color: var(--text-muted); font-size: .95rem; }
+@media (max-width: 480px) {
+  .countdown-grid div { padding: .8rem .2rem; }
+  .countdown-grid span { font-size: .68rem; }
+  .teaser-cd-gap { font-size: .78rem; gap: .6rem; }
+  .teaser-cd-gap strong { font-size: 1.1rem; }
+  .teaser-cd-line em { font-size: .75rem; padding: .2rem .6rem; }
+}

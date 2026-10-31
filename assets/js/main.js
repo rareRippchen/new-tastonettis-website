@@ -181,6 +181,31 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
   }
 
+  /* ---------- Countdown bis Heiligabend ---------- */
+  document.querySelectorAll('[data-countdown]').forEach(function (el) {
+    var target = new Date(el.getAttribute('data-countdown')).getTime();
+    var parts = {};
+    ['days', 'hours', 'minutes', 'seconds'].forEach(function (k) { parts[k] = el.querySelector('[data-cd="' + k + '"]'); });
+    var grid = el.querySelector('.countdown-grid'), label = el.querySelector('.countdown-label'), done = el.querySelector('.countdown-done');
+    var timer;
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
+    function tick() {
+      var diff = Math.max(0, target - Date.now());
+      if (diff === 0) {
+        clearInterval(timer);
+        grid.hidden = true; if (label) label.hidden = true; if (done) done.hidden = false;
+        return;
+      }
+      var s = Math.floor(diff / 1000);
+      parts.days.textContent = Math.floor(s / 86400);
+      parts.hours.textContent = pad(Math.floor(s % 86400 / 3600));
+      parts.minutes.textContent = pad(Math.floor(s % 3600 / 60));
+      parts.seconds.textContent = pad(s % 60);
+    }
+    tick();
+    timer = setInterval(tick, 1000);
+  });
+
   /* Jahr im Footer */
   var y = document.querySelector('[data-year]');
   if (y) y.textContent = new Date().getFullYear();
