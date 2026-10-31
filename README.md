@@ -25,3 +25,9 @@ aufgebaut (Vorschaubilder liegen lokal unter `assets/img/video/`). Erst nach Zus
 
 Ein Video einbinden: Element mit `class="video-embed" data-youtube="VIDEO-ID"` (siehe `index.html`) und
 Vorschaubild unter `assets/img/video/VIDEO-ID.jpg` ablegen.
+
+## Caching / Versionsnummern
+CSS und JavaScript werden mit einer Versionsnummer eingebunden (`style.css?v=…`, `main.js?v=…`).
+Wer `assets/css/style.css` oder `assets/js/main.js` ändert, muss diese Nummer in **allen** HTML-Dateien
+anpassen (beliebiger neuer Wert). Sonst zeigen manche Browser (z. B. Firefox) weiter die alte Datei aus dem Cache.
+Die `.htaccess` sorgt auf Apache-Servern dafür, dass HTML-Seiten immer frisch geladen werden.
