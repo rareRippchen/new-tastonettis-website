@@ -429,10 +429,19 @@ figcaption { font-size: .9rem; color: var(--text-muted); margin-top: .7rem; }
 
 /* ---------- Rechtstexte ---------- */
 .legal { max-width: 860px; }
-.legal h2 { font-size: 1.6rem; margin-top: 2.2rem; }
-.legal h3 { font-size: 1.15rem; margin-top: 2rem; scroll-margin-top: 90px; }
-.legal p { overflow-wrap: anywhere; }
-.legal-box { margin-bottom: 2.5rem; }
+.legal > :first-child { margin-top: 0; }
+.legal h2 {
+  font-size: clamp(1.4rem, 2.6vw, 1.75rem); margin: 3.2rem 0 1.2rem; padding-top: 1.6rem;
+  border-top: 1px solid var(--border); scroll-margin-top: 90px;
+}
+.legal > h2:first-child { border-top: 0; padding-top: 0; }
+.legal h3 { font-size: 1.2rem; margin: 2.2rem 0 .7rem; scroll-margin-top: 90px; }
+.legal h4 { font-size: 1.02rem; margin: 1.6rem 0 .5rem; color: var(--brand); scroll-margin-top: 90px; }
+.legal p, .legal li { overflow-wrap: anywhere; hyphens: auto; -webkit-hyphens: auto; }
+.legal ul { margin: 0 0 1em; padding-left: 1.3em; }
+.legal li { margin-bottom: .6rem; }
+.legal li::marker { color: var(--brand); }
+.legal p:has(br) { background: var(--bg-alt); border-left: 3px solid var(--brand); padding: .9rem 1.2rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding: 4rem 0 2rem; font-size: .95rem; }

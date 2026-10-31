@@ -11,7 +11,7 @@ Statische Website (HTML/CSS/JS, kein Build-Schritt). Einfach den gesamten Ordner
 | `verein.html` | Vorstand, Mitgliedschaft, Highlights, Ehrenmitglieder, Sponsoren, Spenden |
 | `buchung.html` | Buchungsinfos, Technik, Referenzen |
 | `kontakt.html` | Kontakt per E-Mail (tastonettis@gmail.com) |
-| `impressum.html`, `datenschutz.html` | Rechtstexte (1:1 von tastonettis.de) |
+| `impressum.html`, `datenschutz.html` | Rechtstexte (1:1 aus den e-recht24-Dokumenten, Stand Datenschutz: Hosting bei netcup, YouTube im erweiterten Datenschutzmodus) |
 
 ## Design
 - Helles und dunkles Design, wechselt automatisch je nach Systemeinstellung (`prefers-color-scheme`).
