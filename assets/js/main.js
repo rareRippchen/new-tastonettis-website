@@ -187,6 +187,46 @@
     timer = setInterval(tick, 1000);
   });
 
+  /* ---------- Text kopieren (EPK) ---------- */
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.querySelector(btn.getAttribute('data-copy'));
+      if (!src) return;
+      var parts = [];
+      src.querySelectorAll('p').forEach(function (p) { parts.push(p.textContent.trim()); });
+      if (!parts.length) parts.push(src.textContent.trim());
+      var text = parts.join('\n\n');
+      var label = btn.textContent;
+      function done(ok) {
+        btn.textContent = ok ? 'Kopiert ✓' : 'Bitte manuell markieren';
+        btn.classList.toggle('copied', ok);
+        setTimeout(function () { btn.textContent = label; btn.classList.remove('copied'); }, 2000);
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); done(ok);
+      }
+    });
+  });
+
+  /* ---------- Drucken / als PDF speichern (EPK) ---------- */
+  document.querySelectorAll('[data-print]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+      // Bilder sofort laden, damit sie im PDF erscheinen
+      var imgs = Array.prototype.slice.call(document.querySelectorAll('img[loading="lazy"]'));
+      imgs.forEach(function (img) { img.loading = 'eager'; });
+      Promise.all(imgs.map(function (img) {
+        return img.complete ? Promise.resolve() : new Promise(function (r) { img.onload = img.onerror = r; });
+      })).then(function () { window.print(); });
+    });
+  });
+
   /* Jahr im Footer */
   var y = document.querySelector('[data-year]');
   if (y) y.textContent = new Date().getFullYear();

@@ -31,3 +31,8 @@ CSS und JavaScript werden mit einer Versionsnummer eingebunden (`style.css?v=…
 Wer `assets/css/style.css` oder `assets/js/main.js` ändert, muss diese Nummer in **allen** HTML-Dateien
 anpassen (beliebiger neuer Wert). Sonst zeigen manche Browser (z. B. Firefox) weiter die alte Datei aus dem Cache.
 Die `.htaccess` sorgt auf Apache-Servern dafür, dass HTML-Seiten immer frisch geladen werden.
+
+## Electronic Press Kit (EPK)
+`epk.html` ist das Pressepaket für Veranstalter, Presse und Radio. Die Seite ist **nicht in der Navigation verlinkt**
+und per `noindex` von Suchmaschinen ausgeschlossen – einfach den Link weitergeben: `https://tastonettis.de/epk.html`.
+Downloads (Logos, Pressefotos, Pressetexte, Komplettpaket als ZIP) liegen unter `assets/epk/`.
