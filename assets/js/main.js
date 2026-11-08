@@ -83,6 +83,8 @@
     function preload() {
       for (var i = 0; i < count; i++) { var im = new Image(); im.src = src(i); frames.push(im); }
     }
+    // Bildreihenfolge 01→24: Mit steigender Nummer kommt die bunte linke Stirnseite nach vorn (Bild 07),
+    // danach die Rückseite (Bild 13). „Links drehen“, Pfeiltaste links und Ziehen nach rechts zeigen daher das nächste Bild.
     function show(i) { current = (i + count) % count; img.src = src(current); }
     function play() {
       stop();
@@ -110,8 +112,8 @@
 
     var prev = spin.querySelector('[data-spin-prev]');
     var next = spin.querySelector('[data-spin-next]');
-    if (prev) prev.addEventListener('click', function (e) { e.stopPropagation(); stop(); show(current - 1); });
-    if (next) next.addEventListener('click', function (e) { e.stopPropagation(); stop(); show(current + 1); });
+    if (prev) prev.addEventListener('click', function (e) { e.stopPropagation(); stop(); show(current + 1); });
+    if (next) next.addEventListener('click', function (e) { e.stopPropagation(); stop(); show(current - 1); });
     if (playBtn) playBtn.addEventListener('click', function (e) { e.stopPropagation(); timer ? stop() : play(); });
 
     // Ziehen mit Maus / Finger
@@ -124,12 +126,12 @@
       if (dragX === null) return;
       var step = spin.clientWidth / count / 1.2;
       var d = e.clientX - dragX;
-      if (Math.abs(d) >= step) { show(current + (d > 0 ? -1 : 1)); dragX = e.clientX; }
+      if (Math.abs(d) >= step) { show(current + (d > 0 ? 1 : -1)); dragX = e.clientX; }   // Ziehen nach rechts = Drehung nach rechts
     });
     ['pointerup', 'pointercancel'].forEach(function (t) { spin.addEventListener(t, function () { dragX = null; }); });
     spin.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft') { stop(); show(current - 1); }
-      if (e.key === 'ArrowRight') { stop(); show(current + 1); }
+      if (e.key === 'ArrowLeft') { stop(); show(current + 1); }
+      if (e.key === 'ArrowRight') { stop(); show(current - 1); }
     });
   });
 
